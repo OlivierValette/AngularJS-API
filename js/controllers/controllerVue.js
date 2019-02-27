@@ -1,23 +1,30 @@
 // Ajout d'un controller à l'application
 app.controller("controllerVue", function($scope, $http, $log){
 
-    $scope.reset();
-
     $scope.reset = function() {
-        $scope.user = {};
-        $scope.user.email = "";
-        $scope.user.password = "";
-        $scope.user.gender = "";
+        $scope.input = {};
+        $scope.input.year = '';
+        $scope.number = {};
     };
 
-    $http.get('http://quotes.rest')
-        .then(
-            function(result) {
-                $scope.quotes = result.data;
-            },
-            function(error) {
-                $log.error("Erreur de chargement ", error)
-            }
-        );
+    $scope.reset();
+
+    $scope.submit = function() {
+
+        $http.get('http://numbersapi.com/' + $scope.input.year + '/year?json')
+            .then(
+                function(result) {
+                    $scope.number.found = result.data.found;
+                    $scope.number.year = result.data.number;
+                    $scope.number.fact = result.data.text;
+                },
+                function(error) {
+                    $log.error("Erreur de chargement ", error)
+                }
+            );
+
+        $scope.reset();
+
+    };
 
 });

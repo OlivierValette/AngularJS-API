@@ -14,52 +14,27 @@
 <body ng-app="appAng" id="page-top" data-spy="scroll">
 
     <div ng-controller="controllerVue" class="container">
-        <h1>Départements français</h1>
+        <h1>En cette année là...</h1>
 
-        <h1>Formulaire de connexion</h1>
         <form name="connectForm" ng-submit="submit()">
             <div class="form-group">
-                Mail :
-                <input name="email" type="email" ng-model="user.email" required><br>
+                Donnez votre année de naissance:
+                <input type="number" ng-model="input.year"  class="form-text" required>
             </div>
             <div class="form-group">
-                Mot de passe :
-                <input name="password" type="password" ng-model="user.password" required><br>
+                <input name="button" type="submit" value="Valider" class="btn btn-primary">
+                <button type="button" class="btn btn-secondary" ng-click="reset()">Effacer</button>
             </div>
-            <div class="form-group">
-                Genre :
-                <select name="gender" ng-model="user.gender">
-                    <option value="w">Femme</option>
-                    <option value="m">Homme</option>
-                    <option value="o">Autre</option>
-                </select>
-            </div>
-            <input name="button" type="submit"
-                   value="Se connecter" class="btn btn-warning"
-                   ng-disabled="user.email == '' || user.password == ''">
-            <button ng-click="reset()" type="reset" class="btn btn-primary">Effacer</button>
         </form>
 
-        <div class="form-group">
-            Recherche :
-            <input type="text" ng-model="target">
+        <div class="alert alert-success" role="alert" ng-show="number.found">
+            <p><strong>{{number.year}}</strong></p>
+            <p>{{number.fact}}</p>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Code</th>
-                <th scope="col">CodeRegion</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="quote in quoteList | filter: target">
-                <td>{{dep.nom}}</td>
-                <td>{{dep.code}}</td>
-                <td>{{dep.codeRegion}}</td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="alert alert-warning" role="alert" ng-show="number.found === false">
+            <p><strong>Rien pour l'année {{number.year}} !</strong></p>
+        </div>
+
 
     </div>
 
